@@ -25,6 +25,23 @@ import RoadMapConatiner from './components/RoadMapConatiner';
 import FooterContainer from './components/FooterContainer';
 // import { blue } from '@material-ui/core/colors';
 
+const MintOuterContainer = styled.div`
+  text-align: center;
+  margin: 50px auto;
+  border: 3px solid slateblue;
+  width: 30%;
+  height: 75px;
+  padding-top: 20px 70px;
+  border-radius: 50px;
+
+
+  @media(max-width:560px){
+    width:90%;
+  }
+
+`
+
+
 const ConnectButton = styled(WalletDialogButton)`
   position:absolute;  
   top:10px;
@@ -35,13 +52,14 @@ const ConnectButton = styled(WalletDialogButton)`
   font-size: 16px;
   font-weight: bold;
 
+
+
 `;
 
 const MintContainer = styled.div`
-position:absolute;
-width:400px;
+width:100%;
 margin:30px 0;
-`; 
+`;
 
 export interface HomeProps {
   candyMachineId?: anchor.web3.PublicKey;
@@ -173,72 +191,72 @@ const Home = (props: HomeProps) => {
 
   return (
     <main>
-    <NavContainer/>  
-    <MainContainer/>
-    <RoadMapConatiner/>
-    < div className='mint-container'>
-    <Container >
-      <Container maxWidth="xs" style={{ position: 'relative'}}>
-       
-          {!wallet.connected ? (
-            <ConnectButton>Connect Wallet</ConnectButton>
-          ) : (
-            <>
-              <Header candyMachine={candyMachine} />
-              <MintContainer>
-                {candyMachine?.state.isActive &&
-                candyMachine?.state.gatekeeper &&
-                wallet.publicKey &&
-                wallet.signTransaction ? (
-                  <GatewayProvider
-                    wallet={{
-                      publicKey:
-                        wallet.publicKey ||
-                        new PublicKey(CANDY_MACHINE_PROGRAM),
-                      //@ts-ignore
-                      signTransaction: wallet.signTransaction,
-                    }}
-                    gatekeeperNetwork={
-                      candyMachine?.state?.gatekeeper?.gatekeeperNetwork
-                    }
-                    clusterUrl={rpcUrl}
-                    options={{ autoShowModal: false }}
-                  >
+      <NavContainer />
+      <MainContainer />
+      <RoadMapConatiner />
+      <MintOuterContainer>
+        <Container >
+          <Container maxWidth="xs" style={{ position: 'relative' }}>
+
+            {!wallet.connected ? (
+              <ConnectButton>Connect Wallet</ConnectButton>
+            ) : (
+              <>
+                <Header candyMachine={candyMachine} />
+                <MintContainer >
+                  {candyMachine?.state.isActive &&
+                    candyMachine?.state.gatekeeper &&
+                    wallet.publicKey &&
+                    wallet.signTransaction ? (
+                    <GatewayProvider
+                      wallet={{
+                        publicKey:
+                          wallet.publicKey ||
+                          new PublicKey(CANDY_MACHINE_PROGRAM),
+                        //@ts-ignore
+                        signTransaction: wallet.signTransaction,
+                      }}
+                      gatekeeperNetwork={
+                        candyMachine?.state?.gatekeeper?.gatekeeperNetwork
+                      }
+                      clusterUrl={rpcUrl}
+                      options={{ autoShowModal: false }}
+                    >
+                      <MintButton
+                        candyMachine={candyMachine}
+                        isMinting={isUserMinting}
+                        onMint={onMint}
+                      />
+                    </GatewayProvider>
+                  ) : (
                     <MintButton
                       candyMachine={candyMachine}
                       isMinting={isUserMinting}
                       onMint={onMint}
                     />
-                  </GatewayProvider>
-                ) : (
-                  <MintButton
-                    candyMachine={candyMachine}
-                    isMinting={isUserMinting}
-                    onMint={onMint}
-                  />
-                )}
-              </MintContainer>
-            </>
-          )}
-     
-      </Container>
+                  )}
+                </MintContainer>
+              </>
+            )}
 
-      <Snackbar
-        open={alertState.open}
-        autoHideDuration={6000}
-        onClose={() => setAlertState({ ...alertState, open: false })}
-      >
-        <Alert
-          onClose={() => setAlertState({ ...alertState, open: false })}
-          severity={alertState.severity}
-        >
-          {alertState.message}
-        </Alert>
-      </Snackbar>
-    </Container>
-    </div>
-    <FooterContainer/>
-   </main>
+          </Container>
+
+          <Snackbar
+            open={alertState.open}
+            autoHideDuration={6000}
+            onClose={() => setAlertState({ ...alertState, open: false })}
+          >
+            <Alert
+              onClose={() => setAlertState({ ...alertState, open: false })}
+              severity={alertState.severity}
+            >
+              {alertState.message}
+            </Alert>
+          </Snackbar>
+        </Container>
+      </MintOuterContainer>
+      <FooterContainer />
+    </main>
 
   );
 };

@@ -11,17 +11,28 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 margin-top:100px;
+
+
 `
 
 const Title = styled.h1`
 font-family:'Josefin Sans';
 font-weight:bold;
 font-size:50px;
+
+@media (max-width:560px){
+  font-size:18px; 
+ }
 `
 
 const HeaderDiv = styled.div`
 width:700px;
 height:500px;
+
+@media (max-width:560px){
+ width:400px;
+ height:450px; 
+}
 
 `
 
@@ -37,6 +48,10 @@ display:flex;
 justify-content:center;
 align-items:center;
 margin:100px 0;
+
+@media (max-width:560px){
+ margin:50px 0;
+ }
 `
 const Container1 = styled.div`
 width:70%;
@@ -44,16 +59,42 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-wrap:wrap;
+
+@media (max-width:560px){
+width:100%;
+flex-direction:column;
+margin:0 20px;
+ }
 `
+const Container2 = styled.div`
+width:70%;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-wrap:wrap;
+
+@media (max-width:560px){
+width:100%;
+flex-direction:column-reverse;
+margin:0 20px;
+ }
+`
+
 const Left = styled.div`
 flex:50%;
 text-align:justify;
+@media (max-width:560px){
+  
+ }
 `
 
 const Right = styled.div`
 flex:50%;
 display:flex;
 justify-content:flex-end;
+@media (max-width:560px){
+   
+ }
 
 `
 const Left1 = styled.div`
@@ -74,6 +115,11 @@ align-items:flex-end;
 height:350px;
 width:400px;
 margin:0 20px;
+
+@media (max-width:560px){
+ width:280px;
+ height:300px;
+}
 `
 
 const Image = styled.img`
@@ -123,7 +169,7 @@ const MainContainer = () => {
 
 
     <OuterContainer>
-      <Container1>
+      <Container2>
         <Left1>
           <ImageContainer>
             <Image src={Img1} />
@@ -146,7 +192,7 @@ const MainContainer = () => {
             players. You can buy
             items for your game, and when you're done with that, you can recoup your money by selling them.</p>
         </Right1>
-      </Container1>
+      </Container2>
     </OuterContainer>
   </>;
 };

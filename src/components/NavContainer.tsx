@@ -1,12 +1,15 @@
-import logo from '../assets/logo.png'
+import logo from '../assets/head.png'
 
 
 const NavContainer = () => {
   return <div>
     <nav className="navbar navbar-expand-lg navbar-light">
-      <div className="container">
-        <div className="img-container">
-          <img src={logo} alt="" className="logo"></img>
+      <div className="container nav">
+        <div className="inner-container">
+          <div className='img-container'>
+            <img src={logo} alt="" className="logo"></img>
+          </div>
+          <p className='logotitle'>NFT</p>
         </div>
 
 

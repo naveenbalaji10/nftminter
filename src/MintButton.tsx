@@ -13,6 +13,8 @@ export const CTAButton = styled(Button)`
   color: white;
   font-size: 16px;
   font-weight: bold;
+
+  
 `; // add your own styles here
 
 export const MintButton = ({
